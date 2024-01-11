@@ -14,7 +14,7 @@
 
         public function profile (  ): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application {
             $orders = OrderItem::whereHas('order', function ($query) {
-                $query->where('user_id', 2);
+                $query->where('user_id', auth ()->user ()->id);
             })->get();
             return view ("profile",compact ("orders"));
         }
@@ -25,8 +25,7 @@
             return redirect ()->route ("home");
         }
 
-        public function login (  ): \Illuminate\Http\RedirectResponse {
-            flash ()->addSuccess ("Logout Successfully.");
-            return redirect ()->route ("home");
+        public function login (  ): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application {
+            return view ("login");
         }
     }
